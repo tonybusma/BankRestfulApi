@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import Controller from "./Controller";
 import Account from "../schemas/Account";
+import GenericValidator from "../validators/GenericValidator";
 
 class AccountController extends Controller {
   constructor() {
@@ -34,26 +35,69 @@ class AccountController extends Controller {
     if (!phoneNumber) phoneNumber = req.query.phoneNumber;
     if (!birthDate) birthDate = req.query.birthDate;
 
+    const validator: GenericValidator = new GenericValidator();
+
+    let missingParams: Object = validator.checkRequiredParams(
+      cpf,
+      password,
+      name,
+      birthDate
+    );
+    if (JSON.stringify(missingParams) !== "{}") {
+      return res.status(400).send(missingParams);
+    }
+
+    cpf = validator.validateCpf(cpf);
+    if (!cpf) {
+      return res.status(400).send({ message: "Invalid cpf." });
+    }
+
+    birthDate = validator.validateBirthDate(birthDate);
+    if (!birthDate) {
+      return res.status(400).send({ message: "Invalid birth date." });
+    }
+
+    if (email) {
+      email = validator.validateEmail(email);
+      if (!email) {
+        return res.status(400).send({ message: "Invalid email." });
+      }
+    }
+
+    name = validator.validateName(name);
+    if (!name) {
+      return res.status(400).send({ message: "Invalid name." });
+    }
+
+    if (phoneNumber) {
+      phoneNumber = validator.validatePhoneNumber(phoneNumber);
+      if (!phoneNumber) {
+        return res.status(400).send({ message: "Invalid phone number." });
+      }
+    }
+
     const accountExists = await Account.findOne({ cpf });
     if (accountExists) {
-      return res.status(400).send("Cpf already registered.");
+      return res.status(400).send({ message: "Cpf already registered." });
     }
 
     try {
       await Account.create({
-        cpf,
-        password,
-        name,
-        email,
-        phoneNumber,
-        birthDate,
+        ...(cpf && { cpf }),
+        ...(password && { password }),
+        ...(name && { name }),
+        ...(email && { email }),
+        ...(phoneNumber && { phoneNumber }),
+        ...(birthDate && { birthDate }),
       });
-      res.status(201).send("Account created sucefully.");
+      res.status(201).send({ message: "Account created successfully." });
     } catch (error) {
-      console.log("Error while creating new account", error);
-      res.status(500).send("Error while creating new account.");
+      res
+        .status(500)
+        .send({
+          message: `Error while creating new account: ${error.message}.`,
+        });
     }
-    return res;
   }
 }
 
