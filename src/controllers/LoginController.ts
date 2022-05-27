@@ -3,8 +3,11 @@ import Controller from "./Controller";
 import LoginValidator from "../validators/LoginValidator";
 import Account from "../schemas/Account";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 class LoginController extends Controller {
+  private accessTokenExpireTime = "15m";
+  
   constructor() {
     super("/login");
   }
@@ -47,7 +50,8 @@ class LoginController extends Controller {
       return res.status(500).send({ message: "Authentication failed" });
     }
 
-    return res.send({ jwt: "someToken" });
+    let accessToken = jwt.sign({cpf}, process.env.JWT_SECRET, {expiresIn: this.accessTokenExpireTime});
+    return res.send({ accessToken });
   }
 }
 

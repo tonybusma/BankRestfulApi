@@ -1,4 +1,6 @@
 import { Router } from "express";
+import { Request, Response, NextFunction } from "express";
+import jwt from "jsonwebtoken";
 
 abstract class Controller {
   public router: Router;
@@ -12,6 +14,21 @@ abstract class Controller {
   }
 
   protected abstract configureRoutes(): void;
+
+  protected jwtValidation(req: Request, res: Response, next: NextFunction) {
+    const authHeader: string = req.headers.authorization;
+    const token: string = authHeader && authHeader.split(" ")[1];
+    if (!token) {
+      return res.status(401).send({ message: "Unauthorized" });
+    }
+    jwt.verify(token, process.env.JWT_SECRET, (error, cpf) => {
+      if(error){
+        return res.status(403).send({ message: "Invalid access token"});
+      }
+      req["cpf"] = cpf;
+      next();
+    })
+  }
 }
 
 export default Controller;
