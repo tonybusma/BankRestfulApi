@@ -1,7 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import Controller from "./Controller";
 import Account from "../schemas/Account";
-import GenericValidator from "../validators/GenericValidator";
+import AccountValidator from "../validators/AccountValidator";
+import bcrypt from "bcrypt";
 
 class AccountController extends Controller {
   constructor() {
@@ -35,7 +36,7 @@ class AccountController extends Controller {
     if (!phoneNumber) phoneNumber = req.query.phoneNumber;
     if (!birthDate) birthDate = req.query.birthDate;
 
-    const validator: GenericValidator = new GenericValidator();
+    const validator: AccountValidator = new AccountValidator();
 
     let missingParams: Object = validator.checkRequiredParams(
       cpf,
@@ -47,7 +48,7 @@ class AccountController extends Controller {
       return res.status(400).send(missingParams);
     }
 
-    cpf = validator.validateCpf(cpf);
+    cpf = validator.validateCpf(cpf.toString());
     if (!cpf) {
       return res.status(400).send({ message: "Invalid cpf." });
     }
@@ -70,7 +71,7 @@ class AccountController extends Controller {
     }
 
     if (phoneNumber) {
-      phoneNumber = validator.validatePhoneNumber(phoneNumber);
+      phoneNumber = validator.validatePhoneNumber(phoneNumber.toString());
       if (!phoneNumber) {
         return res.status(400).send({ message: "Invalid phone number." });
       }
@@ -82,6 +83,7 @@ class AccountController extends Controller {
     }
 
     try {
+      password = await bcrypt.hash(password, 10);
       await Account.create({
         ...(cpf && { cpf }),
         ...(password && { password }),
@@ -92,11 +94,9 @@ class AccountController extends Controller {
       });
       res.status(201).send({ message: "Account created successfully." });
     } catch (error) {
-      res
-        .status(500)
-        .send({
-          message: `Error while creating new account: ${error.message}.`,
-        });
+      res.status(500).send({
+        message: `Error while creating new account: ${error.message}.`,
+      });
     }
   }
 }
