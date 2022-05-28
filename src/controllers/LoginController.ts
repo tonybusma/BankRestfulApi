@@ -6,8 +6,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 class LoginController extends Controller {
-  private accessTokenExpireTime = "15m";
-  
   constructor() {
     super("/login");
   }
@@ -25,9 +23,9 @@ class LoginController extends Controller {
     if (!cpf) cpf = req.query.cpf;
     if (!password) password = req.query.password;
 
-    let validator: LoginValidator = new LoginValidator();
+    const validator: LoginValidator = new LoginValidator();
 
-    let missingParams: Object = validator.checkRequiredParams(cpf, password);
+    const missingParams: Object = validator.checkRequiredParams(cpf, password);
     if (JSON.stringify(missingParams) !== "{}") {
       return res.status(400).send(missingParams);
     }
@@ -37,7 +35,7 @@ class LoginController extends Controller {
       return res.status(400).send({ message: "Invalid cpf." });
     }
 
-    let account = await Account.findOne({ cpf });
+    const account = await Account.findOne({ cpf: cpf });
     if (!account) {
       return res.status(404).send({ message: "Cpf not found." });
     }
@@ -50,7 +48,9 @@ class LoginController extends Controller {
       return res.status(500).send({ message: "Authentication failed" });
     }
 
-    let accessToken = jwt.sign({cpf}, process.env.JWT_SECRET, {expiresIn: this.accessTokenExpireTime});
+    const accessToken = jwt.sign({ cpf }, process.env.JWT_SECRET, {
+      expiresIn: "15m",
+    });
     return res.send({ accessToken });
   }
 }

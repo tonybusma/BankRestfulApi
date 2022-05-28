@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Controller from "./Controller";
 import Operation from "../schemas/Operation";
 import Account from "../schemas/Account";
+import OperationValidator from "../validators/OperationValidator";
 
 class OperationController extends Controller {
   constructor() {
@@ -9,7 +10,7 @@ class OperationController extends Controller {
   }
 
   protected configureRoutes(): void {
-    this.router.post(this.route, this.createOperation);
+    this.router.post(this.route, this.jwtValidation, this.createOperation);
   }
 
   private async createOperation(
@@ -17,17 +18,76 @@ class OperationController extends Controller {
     res: Response,
     next: NextFunction
   ): Promise<Response> {
-    let { operationType, amount } = req.body;
-    if (!operationType) operationType = req.query.operationType;
+    const cpf = req["cpf"];
+    let { receivingAccount, amount } = req.body;
+    if (!receivingAccount) receivingAccount = req.query.receivingAccount;
     if (!amount) amount = req.query.amount;
 
-    const operation = await Operation.create({ operationType, amount });
+    const validator: OperationValidator = new OperationValidator();
 
-    let account = await Account.findOne({ cpf: "12345678901" });
-    account.operationsHistory.push(operation);
-    await account.save();
+    const missingParams = validator.checkRequiredParams(
+      receivingAccount,
+      amount
+    );
+    if (JSON.stringify(missingParams) !== "{}") {
+      return res.status(400).send(missingParams);
+    }
 
-    return res.send({});
+    receivingAccount = validator.validateCpf(receivingAccount.toString());
+    if (!receivingAccount) {
+      return res
+        .status(400)
+        .send({ message: "Invalid receiving account's cpf." });
+    }
+
+    amount = validator.validateAmount(amount.toString());
+    if (!amount) {
+      return res.status(400).send({ message: "Invalid amount." });
+    }
+
+    if (cpf === receivingAccount) {
+      return res.status(400).send({
+        message:
+          "Transfer operation available only between different accounts.",
+      });
+    }
+
+    if (amount <= 0) {
+      return res.status(400).send({ message: "Amount must be over 0" });
+    }
+
+    let accountDestiny = await Account.findOne({ cpf: receivingAccount });
+    if (!accountDestiny) {
+      return res.status(404).send({ message: "Receiving account not found." });
+    }
+
+    let accountSource = await Account.findOne({ cpf: cpf });
+    if (accountSource.balance < amount) {
+      return res.status(400).send({ message: "Insufficient funds." });
+    }
+
+    try {
+      const operationOut = await Operation.create({
+        operationType: "transferOut",
+        amount: amount,
+      });
+      const operationIn = await Operation.create({
+        operationType: "transferIn",
+        amount: amount,
+      });
+      accountSource.balance = Number(accountSource.balance) - amount;
+      // accountSource.balance -= amount;
+      accountDestiny.balance += amount;
+      accountSource.operationsHistory.push(operationOut);
+      accountDestiny.operationsHistory.push(operationIn);
+      await accountSource.save();
+      await accountDestiny.save();
+      return res.status(201).send({ message: "Transfer successful." });
+    } catch (error) {
+      res.status(500).send({
+        message: `Transfer error: ${error.message}.`,
+      });
+    }
   }
 }
 

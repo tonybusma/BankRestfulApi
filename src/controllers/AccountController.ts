@@ -28,21 +28,21 @@ class AccountController extends Controller {
     res: Response,
     next: NextFunction
   ): Promise<Response> {
-    let { cpf, password, name, email, phoneNumber, birthDate } = req.body;
+    let { cpf, password, name, email, phoneNumber, birthdate } = req.body;
     if (!cpf) cpf = req.query.cpf;
     if (!password) password = req.query.password;
     if (!name) name = req.query.name;
     if (!email) email = req.query.email;
     if (!phoneNumber) phoneNumber = req.query.phoneNumber;
-    if (!birthDate) birthDate = req.query.birthDate;
+    if (!birthdate) birthdate = req.query.birthdate;
 
     const validator: AccountValidator = new AccountValidator();
 
-    let missingParams: Object = validator.checkRequiredParams(
+    const missingParams: Object = validator.checkRequiredParams(
       cpf,
       password,
       name,
-      birthDate
+      birthdate
     );
     if (JSON.stringify(missingParams) !== "{}") {
       return res.status(400).send(missingParams);
@@ -53,8 +53,8 @@ class AccountController extends Controller {
       return res.status(400).send({ message: "Invalid cpf." });
     }
 
-    birthDate = validator.validateBirthDate(birthDate);
-    if (!birthDate) {
+    birthdate = validator.validateBirthdate(birthdate);
+    if (!birthdate) {
       return res.status(400).send({ message: "Invalid birth date." });
     }
 
@@ -77,7 +77,7 @@ class AccountController extends Controller {
       }
     }
 
-    const accountExists = await Account.findOne({ cpf });
+    const accountExists = await Account.findOne({ cpf: cpf });
     if (accountExists) {
       return res.status(400).send({ message: "Cpf already registered." });
     }
@@ -90,7 +90,7 @@ class AccountController extends Controller {
         ...(name && { name }),
         ...(email && { email }),
         ...(phoneNumber && { phoneNumber }),
-        ...(birthDate && { birthDate }),
+        ...(birthdate && { birthdate }),
       });
       res.status(201).send({ message: "Account created successfully." });
     } catch (error) {

@@ -12,26 +12,26 @@ class AccountValidator extends GenericValidator {
     cpf: string,
     password: string,
     name: string,
-    birthDate: string
+    birthdate: string
   ): Object {
     let missingParams: Object = {};
     if (!cpf) {
       missingParams["cpf"] = "Cpf must be sent.";
     }
     if (!password) {
-      missingParams["password"] = "password must be sent.";
+      missingParams["password"] = "Password must be sent.";
     }
     if (!name) {
-      missingParams["name"] = "name must be sent.";
+      missingParams["name"] = "Name must be sent.";
     }
-    if (!birthDate) {
-      missingParams["birthDate"] = "birthDate must be sent.";
+    if (!birthdate) {
+      missingParams["birthdate"] = "Birthdate must be sent.";
     }
     return missingParams;
   }
 
-  validateBirthDate(birthDate: string): Date {
-    let validDate = new Date(birthDate);
+  validateBirthdate(birthdate: string): Date {
+    let validDate = new Date(birthdate);
     if (validDate instanceof Date && !isNaN(validDate.getTime())) {
       if (Date.now() - validDate.getTime() > this.YEARS_18) {
         return validDate;

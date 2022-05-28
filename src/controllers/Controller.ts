@@ -21,13 +21,13 @@ abstract class Controller {
     if (!token) {
       return res.status(401).send({ message: "Unauthorized" });
     }
-    jwt.verify(token, process.env.JWT_SECRET, (error, cpf) => {
-      if(error){
-        return res.status(403).send({ message: "Invalid access token"});
+    jwt.verify(token, process.env.JWT_SECRET, (error, tokenInfo) => {
+      if (error) {
+        return res.status(403).send({ message: "Invalid access token" });
       }
-      req["cpf"] = cpf;
+      req["cpf"] = tokenInfo["cpf"];
       next();
-    })
+    });
   }
 }
 

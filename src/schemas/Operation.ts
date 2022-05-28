@@ -9,7 +9,7 @@ export interface OperationInterface extends Document {
 const OperationSchema = new Schema({
   operationType: {
     type: String,
-    enum: ["deposit", "withdraw", "transfer"],
+    enum: ["deposit", "withdraw", "transferIn", "transferOut"],
     required: [true, "Operation type is required"],
   },
   amount: {

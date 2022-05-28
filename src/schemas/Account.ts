@@ -7,7 +7,7 @@ export interface AccountInterface extends Document {
   name: string;
   email: string;
   phoneNumber: string;
-  birthDate: Date;
+  birthdate: Date;
   balance: Number;
   operationsHistory: Array<OperationInterface>;
 }
@@ -32,9 +32,9 @@ const AccountSchema = new Schema({
   phoneNumber: {
     type: String,
   },
-  birthDate: {
+  birthdate: {
     type: Date,
-    required: [true, "Birth date is required"],
+    required: [true, "Birthdate is required"],
   },
   balance: {
     type: Number,
