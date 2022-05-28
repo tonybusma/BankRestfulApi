@@ -41,21 +41,24 @@ class AccountValidator extends GenericValidator {
   }
 
   validateName(name: string): string {
-    if (this.NAME_REGEX.test(name)) {
+    let regex: Array<any> = this.NAME_REGEX.exec(name);
+    if (regex && regex[0] === regex["input"]) {
       return name;
     }
     return undefined;
   }
 
   validateEmail(email: string): string {
-    if (this.EMAIL_REGEX.test(email)) {
+    let regex: Array<any> = this.EMAIL_REGEX.exec(email);
+    if (regex && regex[0] === regex["input"]) {
       return email;
     }
     return undefined;
   }
 
   validatePhoneNumber(phoneNumber: string): string {
-    if (this.PHONE_NUMBER_REGEX.test(phoneNumber)) {
+    let regex: Array<any> = this.PHONE_NUMBER_REGEX.exec(phoneNumber);
+    if (regex && regex[0] === regex["input"]) {
       let validPhoneNumber = phoneNumber.replace(/[+ -]/g, "");
       return validPhoneNumber;
     }
