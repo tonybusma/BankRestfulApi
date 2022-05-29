@@ -1,4 +1,4 @@
-import "dotenv/config";
+if (process.env.NODE_ENV !== 'production') require("dotenv").config();
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
@@ -9,7 +9,7 @@ class App {
 
   public constructor(controllers: Controller[]) {
     this.app = express();
-    
+
     this.app.use(cors());
     this.app.use(express.json());
     this.initControllers(controllers);
