@@ -53,19 +53,19 @@ class AccountController extends Controller {
       return res.status(400).send({ message: "Invalid cpf." });
     }
 
-    birthdate = validator.validateBirthdate(birthdate);
+    birthdate = validator.validateBirthdate(birthdate.toString());
     if (!birthdate) {
       return res.status(400).send({ message: "Invalid birth date." });
     }
 
     if (email) {
-      email = validator.validateEmail(email);
+      email = validator.validateEmail(email.toString());
       if (!email) {
         return res.status(400).send({ message: "Invalid email." });
       }
     }
 
-    name = validator.validateName(name);
+    name = validator.validateName(name.toString());
     if (!name) {
       return res.status(400).send({ message: "Invalid name." });
     }

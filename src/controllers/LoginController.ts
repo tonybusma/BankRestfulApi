@@ -30,7 +30,7 @@ class LoginController extends Controller {
       return res.status(400).send(missingParams);
     }
 
-    cpf = validator.validateCpf(cpf);
+    cpf = validator.validateCpf(cpf.toString());
     if (!cpf) {
       return res.status(400).send({ message: "Invalid cpf." });
     }

@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import Controller from "./Controller";
 import Account from "../schemas/Account";
 
-class BallanceController extends Controller {
+class BalanceController extends Controller {
   constructor() {
     super("/balance");
   }
@@ -18,8 +18,7 @@ class BallanceController extends Controller {
 
     const account = await Account.findOne({ cpf: cpf });
 
-    console.log(account.balance);
-    return res.send({balance: account.balance});
+    return res.send({ balance: account.balance });
   }
 }
-export default BallanceController;
+export default BalanceController;
