@@ -7,9 +7,9 @@ class BalanceController extends Controller {
     super("/balance");
   }
   protected configureRoutes(): void {
-    this.router.post(this.route, this.jwtValidation, this.checkbalance);
+    this.router.post(this.route, this.jwtValidation, this.checkBalance);
   }
-  private async checkbalance(
+  private async checkBalance(
     req: Request,
     res: Response,
     next: NextFunction
