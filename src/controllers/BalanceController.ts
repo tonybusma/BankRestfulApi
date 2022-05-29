@@ -14,11 +14,14 @@ class BalanceController extends Controller {
     res: Response,
     next: NextFunction
   ): Promise<Response> {
-    let cpf = req["cpf"];
+    let cpf = req.body.cpf;
 
     const account = await Account.findOne({ cpf: cpf });
 
-    return res.send({ balance: account.balance });
+    if (account) {
+      return res.send({ balance: account.balance });
+    }
+    return res.status(500).send({});
   }
 }
 export default BalanceController;

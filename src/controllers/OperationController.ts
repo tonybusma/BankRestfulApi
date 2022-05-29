@@ -18,7 +18,7 @@ class OperationController extends Controller {
     res: Response,
     next: NextFunction
   ): Promise<Response> {
-    const cpf = req["cpf"];
+    const cpf = req.body.cpf;
     let { receivingAccount, amount } = req.body;
     if (!receivingAccount) receivingAccount = req.query.receivingAccount;
     if (!amount) amount = req.query.amount;
@@ -62,7 +62,7 @@ class OperationController extends Controller {
     }
 
     let accountSource = await Account.findOne({ cpf: cpf });
-    if (accountSource.balance < amount) {
+    if (accountSource && accountSource.balance < amount) {
       return res.status(400).send({ message: "Insufficient funds." });
     }
 
@@ -75,19 +75,22 @@ class OperationController extends Controller {
         operationType: "transferIn",
         amount: amount,
       });
-      accountSource.balance = Number(accountSource.balance) - amount;
-      // accountSource.balance -= amount;
-      accountDestiny.balance += amount;
-      accountSource.operationsHistory.push(operationOut);
-      accountDestiny.operationsHistory.push(operationIn);
-      await accountSource.save();
-      await accountDestiny.save();
-      return res.status(201).send({ message: "Transfer successful." });
+      if (accountSource && accountDestiny) {
+        accountSource.balance = Number(accountSource.balance) - amount;
+        // accountSource.balance -= amount;
+        accountDestiny.balance += amount;
+        accountSource.operationsHistory.push(operationOut);
+        accountDestiny.operationsHistory.push(operationIn);
+        await accountSource.save();
+        await accountDestiny.save();
+        return res.status(201).send({ message: "Transfer successful." });
+      }
     } catch (error) {
       res.status(500).send({
-        message: `Transfer error: ${error.message}.`,
+        message: "Transfer error",
       });
     }
+    return res.status(500).send({});
   }
 }
 

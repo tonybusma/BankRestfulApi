@@ -95,9 +95,10 @@ class AccountController extends Controller {
       res.status(201).send({ message: "Account created successfully." });
     } catch (error) {
       res.status(500).send({
-        message: `Error while creating new account: ${error.message}.`,
+        message: "Error while creating new account",
       });
     }
+    return res.status(500).send({});
   }
 }
 

@@ -10,6 +10,6 @@ const app = new App([
   new LoginController(),
   new BalanceController(),
 ]);
-const PORT: Number = parseInt(process.env.PORT) || 3000;
+const PORT: Number = parseInt(process.env.PORT!) || 3000;
 
 app.startListening(PORT);

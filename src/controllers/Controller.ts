@@ -2,6 +2,10 @@ import { Router } from "express";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+interface JwtPayload {
+  cpf: string;
+}
+
 abstract class Controller {
   public router: Router;
   public route: string;
@@ -16,16 +20,17 @@ abstract class Controller {
   protected abstract configureRoutes(): void;
 
   protected jwtValidation(req: Request, res: Response, next: NextFunction) {
-    const authHeader: string = req.headers.authorization;
+    const authHeader: string = req.headers.authorization!;
     const token: string = authHeader && authHeader.split(" ")[1];
     if (!token) {
       return res.status(401).send({ message: "Unauthorized" });
     }
-    jwt.verify(token, process.env.JWT_SECRET, (error, tokenInfo) => {
+    jwt.verify(token, process.env.JWT_SECRET!, (error, tokenInfo) => {
       if (error) {
         return res.status(403).send({ message: "Invalid access token" });
       }
-      req["cpf"] = tokenInfo["cpf"];
+      let { cpf } = tokenInfo as JwtPayload;
+      req.body.cpf = cpf;
       next();
     });
   }

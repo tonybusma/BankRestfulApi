@@ -48,7 +48,7 @@ class LoginController extends Controller {
       return res.status(500).send({ message: "Authentication failed" });
     }
 
-    const accessToken = jwt.sign({ cpf }, process.env.JWT_SECRET, {
+    const accessToken = jwt.sign({ cpf }, process.env.JWT_SECRET!, {
       expiresIn: "15m",
     });
     return res.send({ accessToken });

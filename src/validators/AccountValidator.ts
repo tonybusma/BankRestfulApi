@@ -1,4 +1,11 @@
-import GenericValidator from "./genericValidator";
+import GenericValidator from "./GenericValidator";
+
+interface MissingParams {
+  cpf?: string;
+  password?: string;
+  name?: string;
+  birthdate?: string;
+}
 
 class AccountValidator extends GenericValidator {
   private EMAIL_REGEX: RegExp = /[a-z0-9]+@[a-z]+\.[a-z]+(\.[a-z]+)?/;
@@ -14,23 +21,23 @@ class AccountValidator extends GenericValidator {
     name: string,
     birthdate: string
   ): Object {
-    let missingParams: Object = {};
+    let missingParams: MissingParams = {};
     if (!cpf) {
-      missingParams["cpf"] = "Cpf must be sent.";
+      missingParams.cpf = "Cpf must be sent.";
     }
     if (!password) {
-      missingParams["password"] = "Password must be sent.";
+      missingParams.password = "Password must be sent.";
     }
     if (!name) {
-      missingParams["name"] = "Name must be sent.";
+      missingParams.name = "Name must be sent.";
     }
     if (!birthdate) {
-      missingParams["birthdate"] = "Birthdate must be sent.";
+      missingParams.birthdate = "Birthdate must be sent.";
     }
     return missingParams;
   }
 
-  validateBirthdate(birthdate: string): Date {
+  validateBirthdate(birthdate: string): Date | undefined {
     let validDate = new Date(birthdate);
     if (validDate instanceof Date && !isNaN(validDate.getTime())) {
       if (Date.now() - validDate.getTime() > this.YEARS_18) {
@@ -40,24 +47,25 @@ class AccountValidator extends GenericValidator {
     return undefined;
   }
 
-  validateName(name: string): string {
-    let regex: Array<any> = this.NAME_REGEX.exec(name);
+  validateName(name: string): string | undefined {
+    let regex: RegExpExecArray | null = this.NAME_REGEX.exec(name);
     if (regex && regex[0] === regex["input"]) {
       return name;
     }
     return undefined;
   }
 
-  validateEmail(email: string): string {
-    let regex: Array<any> = this.EMAIL_REGEX.exec(email);
+  validateEmail(email: string): string | undefined {
+    let regex: RegExpExecArray | null = this.EMAIL_REGEX.exec(email);
     if (regex && regex[0] === regex["input"]) {
       return email;
     }
     return undefined;
   }
 
-  validatePhoneNumber(phoneNumber: string): string {
-    let regex: Array<any> = this.PHONE_NUMBER_REGEX.exec(phoneNumber);
+  validatePhoneNumber(phoneNumber: string): string | undefined {
+    let regex: RegExpExecArray | null =
+      this.PHONE_NUMBER_REGEX.exec(phoneNumber);
     if (regex && regex[0] === regex["input"]) {
       let validPhoneNumber = phoneNumber.replace(/[+ -]/g, "");
       return validPhoneNumber;
