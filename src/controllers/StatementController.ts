@@ -19,6 +19,7 @@ class StatementController extends Controller {
         next: NextFunction
     ): Promise<Response> {
         let cpf = req.body.cpf;
+        let { month } = req.body;
 
         const account = await Account.findOne({ cpf: cpf });
 
@@ -31,11 +32,25 @@ class StatementController extends Controller {
 
                 let { operationType, amount, operationDate } = operation;
 
+                let now = new Date();
+                console.log(now);
+
+                let begin = new Date(`${month}/01/${now.getFullYear()}`);
+                let end = new Date(`${month + 1}/01/${now.getFullYear()}`);
+
                 let objectReturn = {
                     ...{ operationType }, ...{ amount }, ...{ operationDate }
                 };
 
-                operationsHistory.push(objectReturn);
+                if(month){
+                    if(operationDate.getTime() < end.getTime() && operationDate.getTime() >= begin.getTime()){
+                        operationsHistory.push(objectReturn);
+                    }
+                }
+                else{
+                    operationsHistory.push(objectReturn);
+                }
+
             }
             
             let totalStatement = { operationsHistory: operationsHistory, balance: account.balance }
