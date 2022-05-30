@@ -49,7 +49,7 @@ class LoginController extends Controller {
     }
 
     const accessToken = jwt.sign({ cpf }, process.env.JWT_SECRET!, {
-      expiresIn: "15m",
+      expiresIn: "30m",
     });
     return res.send({ accessToken });
   }

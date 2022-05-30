@@ -70,10 +70,12 @@ class OperationController extends Controller {
       const operationOut = await Operation.create({
         operationType: "transferOut",
         amount: amount,
+        to: receivingAccount,
       });
       const operationIn = await Operation.create({
         operationType: "transferIn",
         amount: amount,
+        from: cpf,
       });
       if (accountSource && accountDestiny) {
         accountSource.balance = Number(accountSource.balance) - amount;

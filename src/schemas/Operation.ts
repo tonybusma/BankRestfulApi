@@ -4,6 +4,8 @@ export interface OperationInterface extends Document {
   operationType: string;
   amount: number;
   operationDate: Date;
+  to: string;
+  from: string;
 }
 
 const OperationSchema = new Schema({
@@ -19,6 +21,12 @@ const OperationSchema = new Schema({
   operationDate: {
     type: Date,
     default: Date.now,
+  },
+  to: {
+    type: String,
+  },
+  from: {
+    type: String,
   },
 });
 
