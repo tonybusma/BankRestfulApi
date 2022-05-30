@@ -4,13 +4,17 @@ import OperationController from "./controllers/OperationController";
 import LoginController from "./controllers/LoginController";
 import BalanceController from "./controllers/BalanceController"
 import StatementController from "./controllers/StatementController";
+import DepositController from "./controllers/Depositcontroller";
+import WithdrawController from "./controllers/WithdrawController";
 
 const app = new App([
   new AccountController(),
   new OperationController(),
   new LoginController(),
   new BalanceController(),
-  new StatementController()
+  new StatementController(),
+  new DepositController(),
+  new WithdrawController
 ]);
 const PORT: Number = parseInt(process.env.PORT!) || 3000;
 

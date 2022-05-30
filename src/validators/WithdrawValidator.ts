@@ -1,16 +1,10 @@
-import CpfValidator from "./CpfValidator";
-
 interface MissingParams {
-  receivingAccount?: string;
   amount?: string;
 }
 
-class OperationValidator extends CpfValidator {
-  checkRequiredParams(receivingAccount: string, amount: number): Object {
+class WithdrawValidator {
+  checkRequiredParams(amount: number): Object {
     let missingParams: MissingParams = {};
-    if (!receivingAccount) {
-      missingParams.receivingAccount! = "Receiving account's cpf must be sent.";
-    }
     if (!amount) {
       missingParams.amount = "Amount must be sent.";
     }
@@ -26,4 +20,4 @@ class OperationValidator extends CpfValidator {
   }
 }
 
-export default OperationValidator;
+export default WithdrawValidator;

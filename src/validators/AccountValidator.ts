@@ -1,4 +1,4 @@
-import GenericValidator from "./GenericValidator";
+import CpfValidator from "./CpfValidator";
 
 interface MissingParams {
   cpf?: string;
@@ -7,7 +7,7 @@ interface MissingParams {
   birthdate?: string;
 }
 
-class AccountValidator extends GenericValidator {
+class AccountValidator extends CpfValidator {
   private EMAIL_REGEX: RegExp = /[a-z0-9]+@[a-z]+\.[a-z]+(\.[a-z]+)?/;
   private NAME_REGEX: RegExp =
     /^[A-Za-z][A-Za-z\'\-]+([\ A-Za-z][A-Za-z\'\-]+)*/;

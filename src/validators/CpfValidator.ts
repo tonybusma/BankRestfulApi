@@ -1,4 +1,4 @@
-abstract class GenericValidator {
+abstract class CpfValidator {
   private CPF_REGEX: RegExp =
     /([0-9]{3}(\-?|\.?)[0-9]{3}(\-?|\.?)[0-9]{3}(\-?|\.?)[0-9]{2}){1}/;
 
@@ -12,4 +12,4 @@ abstract class GenericValidator {
   }
 }
 
-export default GenericValidator;
+export default CpfValidator;

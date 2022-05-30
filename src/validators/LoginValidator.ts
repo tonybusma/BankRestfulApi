@@ -1,11 +1,11 @@
-import GenericValidator from "./GenericValidator";
+import CpfValidator from "./CpfValidator";
 
 interface MissingParams {
   cpf?: string;
   password?: string;
 }
 
-class LoginValidator extends GenericValidator {
+class LoginValidator extends CpfValidator {
   checkRequiredParams(cpf: string, password: string): Object {
     let missingParams: MissingParams = {};
     if (!cpf) {
