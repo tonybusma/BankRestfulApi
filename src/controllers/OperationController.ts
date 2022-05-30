@@ -58,12 +58,12 @@ class OperationController extends Controller {
 
     let accountDestiny = await Account.findOne({ cpf: receivingAccount });
     if (!accountDestiny) {
-      return res.status(404).send({ message: "Receiving account not found." });
+      return res.status(422).send({ message: "Receiving account not found." });
     }
 
     let accountSource = await Account.findOne({ cpf: cpf });
     if (accountSource && accountSource.balance < amount) {
-      return res.status(400).send({ message: "Insufficient funds." });
+      return res.status(422).send({ message: "Insufficient funds." });
     }
 
     try {

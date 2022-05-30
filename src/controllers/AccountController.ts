@@ -10,17 +10,7 @@ class AccountController extends Controller {
   }
 
   protected configureRoutes(): void {
-    this.router.get(this.route, this.getAllAccounts);
     this.router.post(this.route, this.createAccount);
-  }
-
-  private async getAllAccounts(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ): Promise<Response> {
-    const accounts = await Account.find();
-    return res.send(accounts);
   }
 
   private async createAccount(
@@ -79,7 +69,7 @@ class AccountController extends Controller {
 
     const accountExists = await Account.findOne({ cpf: cpf });
     if (accountExists) {
-      return res.status(400).send({ message: "Cpf already registered." });
+      return res.status(409).send({ message: "Cpf already registered." });
     }
 
     try {

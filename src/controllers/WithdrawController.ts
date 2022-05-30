@@ -40,7 +40,7 @@ class WithdrawController extends Controller {
 
     let account = await Account.findOne({ cpf: cpf });
     if (account && account.balance < amount) {
-      return res.status(400).send({ message: "Insufficient funds." });
+      return res.status(422).send({ message: "Insufficient funds." });
     }
 
     try {

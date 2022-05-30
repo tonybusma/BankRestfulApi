@@ -37,7 +37,7 @@ class LoginController extends Controller {
 
     const account = await Account.findOne({ cpf: cpf });
     if (!account) {
-      return res.status(404).send({ message: "Cpf not found." });
+      return res.status(401).send({ message: "Cpf not found." });
     }
 
     try {

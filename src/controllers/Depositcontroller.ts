@@ -50,7 +50,7 @@ class DepositController extends Controller {
 
     let account = await Account.findOne({ cpf: receivingAccount });
     if (!account) {
-      return res.status(404).send({ message: "Receiving account not found." });
+      return res.status(422).send({ message: "Receiving account not found." });
     }
 
     try {
