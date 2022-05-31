@@ -1,7 +1,7 @@
 # Bank Restful API
-NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
-=======
 API Node.js para simulação de transações bancárias simples usando Typescript, Express e Mongoose.
+=======
+NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
 
 ## Ferramentas utilizadas ##
 - VS Code
@@ -19,3 +19,5 @@ API Node.js para simulação de transações bancárias simples usando Typescrip
 - Saque [Withdraw]
 - Transferência [Operation]
 - Extrato [Statement]
+
+
