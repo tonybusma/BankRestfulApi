@@ -5,6 +5,7 @@ NodeJS API for simple banking transactions simulation using Typescript, Express 
 
 ## Ferramentas utilizadas ##
 - VS Code
+- Javascript
 - Typescript
 - Node.js
 - Express
