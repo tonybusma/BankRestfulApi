@@ -41,7 +41,13 @@ Para acessar as rotas, basta digitar o nome das funcionalidades no final do ende
 > https://bank-api-01.herokuapp.com/account
 
 ###### Desenvolvido por:
-
-| [Carlos Santos](https://github.com/cavap) | [Tony Busma](https://github.com/tonybusma) | Bruno Feitosa](https://github.com/brunaotop) |
+<table>
+  <thead>
+    <th> [Carlos Santos](https://github.com/cavap) </th>
+    <th> [Tony Busma](https://github.com/tonybusma) </th>
+    <th> [Bruno Feitosa](https://github.com/brunaotop) </th>
+  </thead>
+</table>
+| [Carlos Santos](https://github.com/cavap) | [Tony Busma](https://github.com/tonybusma) | [Bruno Feitosa](https://github.com/brunaotop) |
 
 > Status do Projeto: Concluido :heavy_check_mark:
