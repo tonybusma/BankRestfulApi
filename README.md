@@ -1,5 +1,7 @@
 <h1 align="center"> Bank Restful API </h1>
 
+![app bank](https://user-images.githubusercontent.com/90411176/171330867-e45902c8-d8df-4b0e-a5c1-3d3f494eec66.png)
+
 ## Descrição do projeto :blue_book:
 #### API Node.js para simulação de transações bancárias simples usando Typescript, Express e Mongoose.
 
