@@ -1,4 +1,6 @@
 <h1 align="center"> Bank Restful API </h1>
+
+## Descrição do projeto :blue_book:
 API Node.js para simulação de transações bancárias simples usando Typescript, Express e Mongoose.
 =======
 NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
@@ -21,10 +23,13 @@ NodeJS API for simple banking transactions simulation using Typescript, Express 
 ## Funcionalidades :computer:
 - Cadastro do usuário [Account]
 - Login para efetuar as transações [Login]
-- Consulta de saldo [Balance]
+- Consultar saldo [Balance]
 - Depósito [Deposit]
 - Saque [Withdraw]
 - Transferência [Operation]
 - Extrato [Statement]
 
+###### Desenvolvido por:
 
+
+> Status do Projeto: Concluido :heavy_check_mark:
