@@ -43,9 +43,9 @@ Para acessar as rotas, basta digitar o nome das funcionalidades no final do ende
 ###### Desenvolvido por:
 <table>
   <thead>
-    <th> [Carlos Santos](https://github.com/cavap) </th>
-    <th> [Tony Busma](https://github.com/tonybusma) </th>
-    <th> [Bruno Feitosa](https://github.com/brunaotop) </th>
+    <th><a href="https://github.com/cavap">Carlos Santos</a></th>
+    <th><a href="https://github.com/tonybusma">Tony Busma</a></th>
+    <th><a href="https://github.com/brunaotop">Bruno Feitosa</a></th>
   </thead>
 </table>
 | [Carlos Santos](https://github.com/cavap) | [Tony Busma](https://github.com/tonybusma) | [Bruno Feitosa](https://github.com/brunaotop) |
