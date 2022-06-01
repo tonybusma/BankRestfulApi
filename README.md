@@ -1,9 +1,10 @@
 <h1 align="center"> Bank Restful API </h1>
 
 ## Descrição do projeto :blue_book:
-API Node.js para simulação de transações bancárias simples usando Typescript, Express e Mongoose.
-=======
-NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
+#### API Node.js para simulação de transações bancárias simples usando Typescript, Express e Mongoose.
+
+##### Project description:
+##### NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
 
 ## Ferramentas utilizadas :hammer:
 ![Badge](https://img.shields.io/static/v1?label=VScode&message=IDE/editor&color=blue&style=plastic&logo=vsco)
@@ -31,5 +32,11 @@ NodeJS API for simple banking transactions simulation using Typescript, Express 
 
 ###### Desenvolvido por:
 
+[<img src="" width=115 > <br> <sub> Tony Busma </sub>](https://github.com/tonybusma) |
+| :---: |
+[<img src="" width=115 > <br> <sub> Carlos Santos </sub>](https://github.com/cavap) |
+| :---: |
+[<img src="" width=115 > <br> <sub> Bruno Feitosa </sub>](https://github.com/brunaotop) |
+| :---: |
 
 > Status do Projeto: Concluido :heavy_check_mark:
