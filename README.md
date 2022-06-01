@@ -36,19 +36,12 @@ Digite o endereço:
 
 > https://bank-api-01.herokuapp.com/
 
-Para acessar as rotas basta digitar o nome das funcionalidades no final do endereço, após a barra. Exemplo:
+Para acessar as rotas, basta digitar o nome das funcionalidades no final do endereço, após a barra. Exemplo:
 
 > https://bank-api-01.herokuapp.com/account
 
 ###### Desenvolvido por:
 
-[<img src="" width=115 > <br> <sub> Carlos Santos </sub>](https://github.com/cavap) |
-| :---: |
-
-[<img src="" width=115 > <br> <sub> Tony Busma </sub>](https://github.com/tonybusma) |
-| :---: |
-
-[<img src="" width=115 > <br> <sub> Bruno Feitosa </sub>](https://github.com/brunaotop) |
-| :---: |
+| [<img src="" width=115 > <br> <sub> Carlos Santos </sub>](https://github.com/cavap) | [<img src="" width=115 > <br> <sub> Tony Busma </sub>](https://github.com/tonybusma) | [<img src="" width=115 > <br> <sub> Bruno Feitosa </sub>](https://github.com/brunaotop) |
 
 > Status do Projeto: Concluido :heavy_check_mark:
