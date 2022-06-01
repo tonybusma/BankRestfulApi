@@ -42,6 +42,8 @@ Para acessar as rotas, basta digitar o nome das funcionalidades no final do ende
 
 > https://bank-api-01.herokuapp.com/account
 
+![CreateAccount](https://user-images.githubusercontent.com/90411176/171331410-978cee35-ce2b-4197-a402-9b6fa5d49fb1.png)
+
 ###### Desenvolvido por:
 
 <table>
