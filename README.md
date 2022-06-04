@@ -8,7 +8,7 @@
 ##### NodeJS API for simple banking transactions simulation using Typescript, Express and Mongoose
 
 ## Ferramentas utilizadas :hammer:
-![Badge](https://img.shields.io/static/v1?label=VScode&message=IDE/editor&color=blue&style=plastic&logo=vsco)
+![Badge](https://img.shields.io/static/v1?label=VScode&message=IDE/editor&color=blue&style=plastic&logo=visualstudiocode)
 
 ![Badge](https://img.shields.io/static/v1?label=JavaScript&message=language&color=yellow&style=plastic&logo=javascript)
 
